@@ -1284,6 +1284,7 @@ HTML;
          'solved'             => __('Solved tickets'),
          'closed'             => __('Closed tickets'),
          'assigned_for_user'  => __('Tickets assigned for user'),
+         'observed_tickets'   => __('Tickets observed by user'),
          'not_closed'         => __('Open tickets'),
          'processing'         => __('Processing tickets'),
       ];

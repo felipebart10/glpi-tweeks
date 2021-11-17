@@ -4,4 +4,8 @@ commonitilobject.class: código modificado para mostrar apenas hora e minutos do
 
 provider.class e grid.class: criação de cards personalizados para inserção na dashboard do glpi.
 
-projecttask_ticket.class e projecttask.class: modificados para ordenar os chamados relacionados à tarefa
+item_softwareversion.class.php: modificado para corrigir o contador de software na aba "Software". Este estava filtrando as entidades, gerando uma contagem errada.
+
+commondbrelation.class.php: modificado para ordenar os chamados relacionados a tarefas, problemas e mudanças
+
+pasta Dashboard: adição de cartões personalizados.

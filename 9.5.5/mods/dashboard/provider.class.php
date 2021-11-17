@@ -307,8 +307,8 @@ class Provider extends CommonGLPI
             break;
 
          case 'waiting_validation':
-            $params['icon']  = "far fa-eye";
-            $params['label'] = __("Tickets waiting your validation");
+            $params['icon']  = "far fa-check-circle";
+            $params['label'] = __("Validar");
             $search_criteria = [
                [
                   'field'      => 55,
@@ -341,8 +341,8 @@ class Provider extends CommonGLPI
          // CÓDIGO MODIFICADO: CRIAÇÃO DO CARTÃO DE TICKETS ABERTOS PARA O TÉCNICO LOGADO.
          case 'assigned_for_user':
             $status = Ticket::CLOSED;
-            $params['icon']  = Ticket::getIcon();
-            $params['label']  = __("assigned_for_user");
+            $params['icon']  = 'fas fa-envelope-open-text';
+            $params['label']  = __("Abertos");
             $search_criteria = [
                [
                   'field'      => 12,
@@ -369,6 +369,45 @@ class Provider extends CommonGLPI
                ],
                'WHERE' => [
                   'glpi_tickets_users.type'            => 2,
+                  'glpi_tickets_users.users_id'     => Session::getLoginUserID(),
+                  'NOT' => [
+                     'glpi_tickets.status' => $status,
+                  ]
+               ]
+            ]);
+            break;
+
+         // CÓDIGO MODIFICADO: CRIAÇÃO DO CARTÃO DE TICKETS OBSERVADO PELO TÉCNICO LOGADO.
+         case 'observed_tickets':
+            $status = Ticket::CLOSED;
+            $params['icon']  = 'far fa-eye';
+            $params['label']  = __("Observados");
+            $search_criteria = [
+               [
+                  'field'      => 12,
+                  'searchtype' => 'equals',
+                  'value'      => 'notclosed',
+               ],
+               [
+                  'link'       => 'AND',
+                  'field'      => 66,
+                  'searchtype' => 'equals',
+                  'value'      => Session::getLoginUserID(),
+               ]
+
+            ];
+
+            $query_criteria = array_merge_recursive($query_criteria, [
+               'LEFT JOIN' => [
+                  'glpi_tickets_users' => [
+                     'ON' => [
+                        'glpi_tickets_users' => 'tickets_id',
+                        $table                   => 'id'
+                     ]
+                  ]
+               ],
+               'WHERE' => [
+                  'glpi_tickets_users.type'            => 3,
                   'glpi_tickets_users.users_id'     => Session::getLoginUserID(),
                   'NOT' => [
                      'glpi_tickets.status' => $status,
