@@ -9,3 +9,5 @@ item_softwareversion.class.php: modificado para corrigir o contador de software 
 commondbrelation.class.php: modificado para ordenar os chamados relacionados a tarefas, problemas e mudanças
 
 pasta Dashboard: adição de cartões personalizados.
+
+central.class.php: inclusão de problemas e mudanças
